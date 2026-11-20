@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zahid Ahmed — Full-Stack Developer &amp; AI Builder</title>
+  <meta name="description" content="Zahid Ahmed is a BS IT graduate and software developer from Pakistan building free education platforms and AI-powered campus software." />
+  <meta name="theme-color" content="#050814" />
+  <meta property="og:title" content="Zahid Ahmed | Full-Stack Developer, EdTech &amp; AI" />
+  <meta property="og:description" content="Building free education platforms and AI-powered campus software." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23050814'/><text x='50' y='68' font-size='56' text-anchor='middle' fill='%237cc4fa' font-family='Arial' font-weight='700'>Z</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Intro Curtain -->
+  <div class="intro-curtain" id="introCurtain" aria-hidden="true">
+    <div class="intro-mark">Zahid Ahmed<span>.</span></div>
+  </div>
+
+  <div class="progress" id="progress"></div>
+  <canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ================= NAVIGATION ================= -->
+  <header>
+    <div class="wrap">
+      <nav class="glass" aria-label="Main">
+        <a href="#top" class="brand">Zahid<span>.</span></a>
+        <div class="links" id="links">
+          <a class="item" href="#about">About</a>
+          <a class="item" href="#projects">Work</a>
+          <a class="item" href="#skills">Stack</a>
+          <a class="item" href="#journey">Journey</a>
+          <a class="item" href="#contact">Contact</a>
+          <a class="btn primary small shine magnetic" id="navCta" href="#contact">Hire Me</a>
+        </div>
+        <div class="nav-actions">
+          <button class="cmd-trigger" id="cmdBtn" type="button" title="Quick Command Palette (Ctrl+K)" aria-label="Open command palette">
+            <span>⌘K</span>
+          </button>
+          <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">☀️</button>
+          <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div class="hero-text" id="heroText">
+          <div class="status glass hero-in" style="--d:120ms">
+            <i class="dot"></i>
+            <span>Available for Software &amp; AI Roles</span>
+          </div>
+          <h1 class="hero-in" style="--d:200ms">
+            Hi, This is <span class="grad">Zahid Ahmed</span>.
+          </h1>
+          <span class="typed hero-in" style="--d:280ms" aria-live="polite">
+            <span class="mono-prefix">&gt;_</span> I build <b id="typed"></b><i class="caret"></i>
+          </span>
+          <p class="sub hero-in" style="--d:340ms">
+            BS Information Technology graduate from Nawabshah, Pakistan. Co-founder of
+            <strong>Al-Ilm Learning Site</strong> and builder of AI-assisted campus software.
+          </p>
+          <div class="cta hero-in" style="--d:400ms">
+            <a href="#projects" class="btn primary shine magnetic">Explore Selected Work →</a>
+            <a href="#contact" class="btn outline magnetic">Let's Connect</a>
+            <button type="button" class="btn ghost magnetic" id="copyEmailHero">Copy Email</button>
+          </div>
+          <div class="hero-meta hero-in" style="--d:460ms">
+            <span>Nawabshah, Pakistan</span>
+            <span>BS IT · QUEST</span>
+            <span>EdTech &amp; Applied AI</span>
+          </div>
+        </div>
+
+        <div class="photo-stage hero-in" style="--d:240ms">
+          <div class="photo-wrap" id="photo">
+            <div class="photo-ring" aria-hidden="true"></div>
+            <div class="photo-ring r2" aria-hidden="true"></div>
+            <img id="myPhoto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 520'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237cc4fa'/%3E%3Cstop offset='1' stop-color='%23a78bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='200' cy='170' r='85' fill='url(%23g)' opacity='.85'/%3E%3Cpath d='M30 520 C30 360 120 300 200 300 C280 300 370 360 370 520 Z' fill='url(%23g)' opacity='.7'/%3E%3Ctext x='200' y='195' font-size='80' text-anchor='middle' fill='white' font-family='Arial' font-weight='700'%3EZ%3C/text%3E%3C/svg%3E" alt="Portrait of Zahid Ahmed" width="864" height="1184" fetchpriority="high" />
+            <div class="float-chip glass c1"><span class="chip-dot"></span>EdTech Co-founder</div>
+            <div class="float-chip glass c2"><span class="chip-dot"></span>AI &amp; FastAPI</div>
+            <div class="float-chip glass c3"><span class="chip-dot"></span>Full-Stack Web</div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"></div>
+    </section>
+
+    <!-- ================= MARQUEE ================= -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marqueeTrack">
+        <span>HTML5 &amp; CSS3</span><span>JavaScript &amp; TypeScript</span><span>Next.js &amp; React</span><span>Python &amp; FastAPI</span><span>Gemini API</span><span>Scikit-learn</span><span>Git &amp; GitHub</span><span>Netlify</span>
+      </div>
+    </div>
+
+    <!-- ================= STATS BENTO ================= -->
+    <section class="stats">
+      <div class="wrap reveal">
+        <div class="stats-grid stagger">
+          <div class="stat glass tilt border-beam"><span class="mono-num">01</span><strong data-count="2">0</strong><span>Flagship Platforms</span></div>
+          <div class="stat glass tilt border-beam"><span class="mono-num">02</span><strong><span data-count="100" style="color:inherit;font-size:inherit">0</span>%</strong><span>Free Learning Access</span></div>
+          <div class="stat glass tilt border-beam"><span class="mono-num">03</span><strong data-count="2">0</strong><span>FBR &amp; SECP Registered</span></div>
+          <div class="stat glass tilt border-beam"><span class="mono-num">04</span><strong>AI</strong><span>Risk &amp; Study Advisor</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section id="about">
+      <div class="wrap about reveal">
+        <div>
+          <p class="eyebrow"><span class="mono-num">01 /</span> About Me</p>
+          <h2>Engineering software that expands access to education.</h2>
+          <p>
+            I'm a BS Information Technology graduate from <strong>QUEST, Nawabshah</strong>, focused on building
+            practical web platforms and intelligent systems that solve real problems.
+          </p>
+          <p>
+            As Co-founder and Technical Manager of <strong>Al-Ilm Learning Site (AILS)</strong>, I lead technical
+            operations for a free online Islamic and technical academy registered with FBR and SECP in Pakistan.
+          </p>
+          <p>
+            In parallel, I'm rebuilding <strong>Campus Core</strong> into a full-stack AI campus management
+            platform designed to eliminate manual academic bottlenecks and surface early-warning student insights.
+          </p>
+        </div>
+        <aside class="panel glass tilt border-beam">
+          <div class="panel-head-terminal">
+            <span class="t-dots"><i></i><i></i><i></i></span>
+            <span class="mono-num">zahid.profile.json</span>
+          </div>
+          <ul>
+            <li><span>Location</span><span>Nawabshah, Pakistan</span></li>
+            <li><span>Degree</span><span>BS IT · QUEST (2021–2026)</span></li>
+            <li><span>Specialty</span><span>Full-Stack Web &amp; AI</span></li>
+            <li><span>Languages</span><span>English, Urdu</span></li>
+            <li><span>Status</span><span class="status-green">Open to Opportunities</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow"><span class="mono-num">02 /</span> Selected Work</p>
+          <h2>Case Studies</h2>
+          <p class="lead">Switch between Overview, Architecture, and Impact on each project.</p>
+        </div>
+
+        <div class="reveal">
+          <article class="case glass tilt border-beam" data-case="ails">
+            <div class="case-top">
+              <div>
+                <div class="case-meta-row">
+                  <span class="mono-num">CASE 01</span>
+                  <span class="tag">Live Platform</span>
+                </div>
+                <h3>Al-Ilm Learning Site (AILS)</h3>
+              </div>
+              <div class="case-links">
+                <a class="btn primary small shine magnetic" href="https://ailslearning.com" target="_blank" rel="noopener">Visit ailslearning.com ↗</a>
+              </div>
+            </div>
+
+            <div class="flow-strip" aria-label="Platform flow">
+              <span class="flow-node">Learners</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node">Structured Tracks</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node">AILS Web Platform</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node accent">100% Free Access</span>
+            </div>
+
+            <div class="case-tabs" role="tablist" aria-label="AILS details">
+              <button type="button" class="case-tab active" data-tab="overview">Overview</button>
+              <button type="button" class="case-tab" data-tab="architecture">My Role &amp; Ops</button>
+              <button type="button" class="case-tab" data-tab="impact">Impact</button>
+            </div>
+
+            <div class="case-panels">
+              <div class="case-panel active" data-panel="overview">
+                <div class="case-grid">
+                  <div><h4>The Problem</h4><p>Quality Islamic and technical education is often expensive or scattered across disconnected platforms.</p></div>
+                  <div><h4>The Solution</h4><p>A unified, 100% free online academy delivering structured courses with clean navigation and accessibility.</p></div>
+                </div>
+              </div>
+              <div class="case-panel" data-panel="architecture">
+                <div class="case-grid">
+                  <div><h4>Technical Leadership</h4><p>Co-founder &amp; Technical Manager overseeing web architecture, responsive UI, course delivery, and uptime.</p></div>
+                  <div><h4>Core Stack</h4><p>Built with semantic HTML5, modern CSS3, vanilla JavaScript, and responsive layout patterns.</p></div>
+                </div>
+              </div>
+              <div class="case-panel" data-panel="impact">
+                <div class="case-grid">
+                  <div><h4>Official Registration</h4><p>Registered private limited company with both FBR and SECP in Pakistan.</p></div>
+                  <div><h4>Accessibility</h4><p>Provides completely free technical and Islamic education to students nationwide.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive UI</span><span>Technical Management</span></div>
+          </article>
+        </div>
+
+        <div class="reveal">
+          <article class="case glass tilt border-beam" data-case="campus">
+            <div class="case-top">
+              <div>
+                <div class="case-meta-row">
+                  <span class="mono-num">CASE 02</span>
+                  <span class="tag dev">Active Rebuild</span>
+                </div>
+                <h3>Campus Core: AI Management System</h3>
+              </div>
+              <div class="case-links">
+                <a class="btn outline small magnetic" href="https://github.com/zahid-ahmedk" target="_blank" rel="noopener">GitHub Profile ↗</a>
+              </div>
+            </div>
+
+            <div class="flow-strip" aria-label="AI architecture flow">
+              <span class="flow-node">Next.js UI</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node">FastAPI Engine</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node">Scikit-learn Risk</span>
+              <span class="flow-line"><i></i></span>
+              <span class="flow-node accent">Gemini AI Advisor</span>
+            </div>
+
+            <div class="case-tabs" role="tablist" aria-label="Campus Core details">
+              <button type="button" class="case-tab active" data-tab="overview">Overview</button>
+              <button type="button" class="case-tab" data-tab="architecture">AI &amp; Architecture</button>
+              <button type="button" class="case-tab" data-tab="impact">Key Features</button>
+            </div>
+
+            <div class="case-panels">
+              <div class="case-panel active" data-panel="overview">
+                <div class="case-grid">
+                  <div><h4>The Problem</h4><p>Manual attendance, GPA calculation, and academic reporting cost institutions hours and cause errors.</p></div>
+                  <div><h4>The Solution</h4><p>An AI-integrated campus platform automating academic workflows with predictive student insights.</p></div>
+                </div>
+              </div>
+              <div class="case-panel" data-panel="architecture">
+                <div class="case-grid">
+                  <div><h4>Full-Stack Engine</h4><p>Python (FastAPI) backend paired with a Next.js (React, TypeScript, Tailwind CSS) frontend.</p></div>
+                  <div><h4>AI &amp; ML Layer</h4><p>Scikit-learn early-warning risk predictor combined with a Gemini API AI Study &amp; Performance Advisor.</p></div>
+                </div>
+              </div>
+              <div class="case-panel" data-panel="impact">
+                <div class="case-grid">
+                  <div><h4>Role-Based Access</h4><p>Dedicated dashboards and permissions for Admin, Faculty, and Students.</p></div>
+                  <div><h4>Automated Academics</h4><p>Built-in GPA/CGPA engine and proactive alerts for at-risk students.</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stack"><span>Python</span><span>FastAPI</span><span>Next.js</span><span>TypeScript</span><span>Tailwind CSS</span><span>Scikit-learn</span><span>Gemini API</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow"><span class="mono-num">03 /</span> Technical Stack</p>
+          <div class="section-head-row">
+            <h2>Skills &amp; Tools</h2>
+            <div class="filter-pills" id="skillFilters" role="group" aria-label="Filter skills">
+              <button type="button" class="active" data-filter="all">All</button>
+              <button type="button" data-filter="frontend">Frontend</button>
+              <button type="button" data-filter="backend">Backend &amp; AI</button>
+              <button type="button" data-filter="tools">Workflow</button>
+            </div>
+          </div>
+          <p class="lead">Filter by area to inspect the technologies I build with.</p>
+        </div>
+        <div class="skill-grid reveal stagger" id="skillGrid">
+          <div class="panel glass tilt border-beam" data-cat="frontend"><h3>Frontend</h3><div class="pills"><span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Next.js &amp; React</span><span>TypeScript</span><span>Tailwind CSS</span></div></div>
+          <div class="panel glass tilt border-beam" data-cat="backend"><h3>Backend &amp; Data</h3><div class="pills"><span>Python</span><span>FastAPI</span><span>REST APIs</span><span>SQL / Database Design</span></div></div>
+          <div class="panel glass tilt border-beam" data-cat="backend"><h3>AI &amp; Machine Learning</h3><div class="pills"><span>Gemini API</span><span>LLM Integration</span><span>Scikit-learn</span><span>Prompt Engineering</span></div></div>
+          <div class="panel glass tilt border-beam" data-cat="tools"><h3>Tools &amp; Deployment</h3><div class="pills"><span>Git &amp; GitHub</span><span>Netlify</span><span>VS Code</span><span>PowerShell</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOURNEY ================= -->
+    <section id="journey">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow"><span class="mono-num">04 /</span> Experience &amp; Education</p>
+          <h2>Journey</h2>
+          <p class="lead">Key milestones from university to founding and engineering live platforms.</p>
+        </div>
+        <div class="timeline reveal stagger">
+          <div class="t-item"><time>2026 – Present</time><h3>Campus Core Management System with AI</h3><p>Rebuilding my undergraduate campus management system into a full-stack AI platform with FastAPI, Next.js, Scikit-learn, and the Gemini API.</p></div>
+          <div class="t-item"><time>Ongoing</time><h3>Al-Ilm Learning Site (AILS)</h3><p>Co-founder &amp; Technical Manager for an FBR- and SECP-registered free online academy for Islamic and technical education.</p></div>
+          <div class="t-item"><time>2021 – 2026</time><h3>BS Information Technology — QUEST, Nawabshah</h3><p>Completed Bachelor of Science in Information Technology at Quaid-e-Awam University of Engineering, Science and Technology.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section id="contact">
+      <div class="wrap contact reveal">
+        <div>
+          <p class="eyebrow"><span class="mono-num">05 /</span> Contact</p>
+          <h2>Let's build something meaningful.</h2>
+          <p class="lead" style="margin-bottom:20px">Open to full-time roles, internships, and technical collaborations.</p>
+          <ul class="contact-list" id="contactList">
+            <li><span>Email</span><a href="mailto:techyexpert98@gmail.com">techyexpert98@gmail.com</a></li>
+            <li id="linkedinRow" style="display:none"><span>LinkedIn</span><a id="linkedinLink" href="https://linkedin.com" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></li>
+            <li><span>GitHub</span><a href="https://github.com/zahid-ahmedk" target="_blank" rel="noopener">github.com/zahid-ahmedk</a></li>
+            <li><span>Al-Ilm Site</span><a href="https://ailslearning.com" target="_blank" rel="noopener">ailslearning.com</a></li>
+            <li><span>Location</span><span>Nawabshah, Pakistan</span></li>
+          </ul>
+        </div>
+
+        <div class="form-card glass border-beam">
+          <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact" />
+            <p style="display:none"><label>Leave empty: <input name="bot-field" /></label></p>
+            <div><label for="name">Name</label><input id="name" type="text" name="name" placeholder="Your name" required /></div>
+            <div><label for="email">Email</label><input id="email" type="email" name="email" placeholder="you@company.com" required /></div>
+            <div><label for="message">Message</label><textarea id="message" name="message" placeholder="Tell me about the role or project..." required></textarea></div>
+            <button class="btn primary shine magnetic" type="submit">Send Message →</button>
+            <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span id="year"></span> Zahid Ahmed. Crafted with precision.</span>
+      <span class="footer-hint">Press <kbd>Ctrl</kbd> + <kbd>K</kbd> for quick actions · <a href="#top">Back to top ↑</a></span>
+    </div>
+  </footer>
+
+  <!-- ================= COMMAND PALETTE (Ctrl+K) ================= -->
+  <div class="cmd-backdrop" id="cmdBackdrop" aria-hidden="true">
+    <div class="cmd-modal glass" role="dialog" aria-modal="true" aria-label="Quick Command Palette">
+      <div class="cmd-head">
+        <span class="mono-num">&gt;_</span>
+        <input type="text" id="cmdSearch" placeholder="Type a command or jump to section..." autocomplete="off" />
+        <button type="button" class="cmd-esc" id="cmdClose">ESC</button>
+      </div>
+      <div class="cmd-list" id="cmdList">
+        <button type="button" data-action="scroll" data-target="#about"><span>Jump to About Me</span><kbd>01</kbd></button>
+        <button type="button" data-action="scroll" data-target="#projects"><span>Jump to Case Studies</span><kbd>02</kbd></button>
+        <button type="button" data-action="scroll" data-target="#skills"><span>Jump to Skills &amp; Stack</span><kbd>03</kbd></button>
+        <button type="button" data-action="scroll" data-target="#contact"><span>Jump to Contact Form</span><kbd>05</kbd></button>
+        <button type="button" data-action="chat"><span>Open Zahid's AI Assistant</span><kbd>AI</kbd></button>
+        <button type="button" data-action="copy"><span>Copy Email (techyexpert98@gmail.com)</span><kbd>COPY</kbd></button>
+        <button type="button" data-action="theme"><span>Toggle Light / Dark Theme</span><kbd>THEME</kbd></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOAST ================= -->
+  <div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ================= AI PORTFOLIO CHATBOT ================= -->
+  <button class="chat-fab glass magnetic" id="chatFab" type="button" aria-label="Ask Zahid's AI Assistant" aria-expanded="false">
+    <span class="chat-fab-dot"></span>
+    <span>Ask AI</span>
+  </button>
+
+  <aside class="chat-widget glass" id="chatWidget" aria-label="Portfolio AI Assistant" aria-hidden="true">
+    <div class="chat-head">
+      <div>
+        <strong>Zahid's Portfolio AI</strong>
+        <small id="chatModeLabel">Smart Assistant · Ready</small>
+      </div>
+      <button class="icon-btn" id="chatClose" type="button" aria-label="Close chat">✕</button>
+    </div>
+    <div class="chat-body" id="chatBody">
+      <div class="chat-msg bot">
+        Hi! I'm Zahid's AI assistant. Ask me about Campus Core AI, Al-Ilm Learning Site, his tech stack, or how to hire him.
+      </div>
+    </div>
+    <div class="chat-quick" id="chatQuick">
+      <button type="button" data-q="Tell me about Campus Core AI">Campus Core AI</button>
+      <button type="button" data-q="What is Al-Ilm Learning Site?">Al-Ilm Site</button>
+      <button type="button" data-q="What are Zahid's skills?">Tech Stack</button>
+    </div>
+    <form class="chat-input" id="chatForm">
+      <input type="text" id="chatInput" placeholder="Ask about Zahid's work..." autocomplete="off" required />
+      <button class="btn primary small" type="submit">Send</button>
+    </form>
+  </aside>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
