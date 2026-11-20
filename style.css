@@ -481,48 +481,67 @@ footer kbd, .cmd-list kbd {
 }
 
 @media (max-width: 600px) {
-  section { padding: 42px 0; }
+  html, body { overflow-x: clip; }
+  section { padding: 38px 0; }
   .wrap { width: 92%; }
-  nav { height: 56px; padding: 0 8px 0 16px; }
-  .cmd-trigger { display: none; }
-  .hero { padding: 84px 0 34px; }
-  .photo-wrap { width: min(200px, 52vw); }
-  .photo-wrap::before { filter: blur(40px); }
-  .hero h1 { font-size: clamp(1.95rem, 9vw, 2.4rem); }
-  .typed { font-size: 1.02rem; }
-  .hero p.sub { font-size: .96rem; margin: 12px 0 22px; }
-  .cta { flex-direction: column; align-items: stretch; }
-  .cta .btn { width: 100%; justify-content: center; padding: 14px 22px; }
-  .hero-meta { gap: 8px 16px; margin-top: 22px; font-size: .8rem; }
-  .lead { margin-bottom: 22px; }
-  .stats { padding: 30px 0 8px; }
+  header { top: max(10px, env(safe-area-inset-top)); }
+  nav { height: 54px; padding: 0 8px 0 16px; }
+  .cmd-trigger, .cmd-hint-text { display: none; }
+
+  /* Crisp centered mobile hero so photo + headline + CTA fit above the fold */
+  .hero { padding: 78px 0 28px; min-height: auto; }
+  .hero-grid { gap: 12px; }
+  .hero-text { text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .status { margin-bottom: 14px; font-size: .78rem; padding: 6px 12px; }
+  .photo-wrap { width: min(168px, 44vw); margin: 0 auto; }
+  .photo-ring { inset: 4% 2% auto 2%; }
+  .photo-wrap::before { filter: blur(36px); }
+  .hero h1 { font-size: clamp(1.85rem, 8.5vw, 2.3rem); line-height: 1.08; }
+  .typed { font-size: .98rem; margin-top: 10px; min-height: 1.6em; }
+  .hero p.sub { font-size: .92rem; margin: 10px 0 18px; max-width: 100%; }
+  .cta { width: 100%; flex-direction: column; gap: 8px; }
+  .cta .btn { width: 100%; justify-content: center; padding: 12px 18px; font-size: .9rem; }
+  .cta .btn.ghost { padding: 8px 14px; }
+  .hero-meta { justify-content: center; gap: 6px 14px; margin-top: 16px; font-size: .76rem; }
+
+  .lead { margin-bottom: 20px; font-size: .94rem; }
+  .stats { padding: 24px 0 8px; }
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat { padding: 16px; }
-  .stat strong { font-size: 1.5rem; }
-  .stat span:last-child { font-size: .78rem; }
-  .case { padding: 20px 16px; border-radius: 18px; margin-bottom: 16px; }
-  .case-top { gap: 12px; margin-bottom: 14px; }
-  .case-top h3 { font-size: 1.25rem; }
-  .flow-strip { gap: 6px; padding: 8px 10px; }
+  .stat { padding: 14px; }
+  .stat strong { font-size: 1.45rem; }
+  .stat span:last-child { font-size: .76rem; }
+
+  .case { padding: 18px 15px; border-radius: 18px; margin-bottom: 14px; }
+  .case-top { gap: 10px; margin-bottom: 12px; }
+  .case-top h3 { font-size: 1.2rem; }
+  .flow-strip { gap: 6px; padding: 8px 10px; margin-bottom: 14px; }
+  .flow-node { font-size: .7rem; padding: 3px 8px; }
   .flow-line { display: none; }
-  .case-grid { gap: 16px; margin-bottom: 16px; }
+  .case-tabs { width: 100%; justify-content: space-between; }
+  .case-tab { flex: 1; text-align: center; font-size: .76rem; padding: 6px 8px; }
+  .case-grid { gap: 14px; margin-bottom: 14px; }
   .case-links { width: 100%; }
   .case-links .btn { flex: 1; justify-content: center; }
-  .panel { padding: 20px 16px; }
+
+  .filter-pills { width: 100%; }
+  .filter-pills button { flex: 1; text-align: center; font-size: .76rem; padding: 6px 8px; }
+  .panel { padding: 18px 15px; }
   .skill-grid { grid-template-columns: 1fr; gap: 12px; }
-  .t-item { padding: 0 0 22px 24px; }
-  .form-card { padding: 20px 16px; }
-  .contact-list li { flex-wrap: wrap; gap: 2px 12px; }
+  .t-item { padding: 0 0 20px 22px; }
+  .form-card { padding: 18px 15px; }
+  .contact-list li { flex-direction: column; align-items: flex-start; gap: 2px; padding: 10px 0; }
   .contact-list a, .panel li span:last-child { overflow-wrap: anywhere; }
-  .marquee { padding: 13px 0; }
-  .marquee span { font-size: .88rem; }
-  footer .wrap { flex-direction: column; align-items: flex-start; }
-  .footer-hint { font-size: .8rem; }
-  .glass { backdrop-filter: blur(12px) saturate(140%); -webkit-backdrop-filter: blur(12px) saturate(140%); }
-  .orb { filter: blur(60px); }
+  .marquee { padding: 12px 0; }
+  .marquee span { font-size: .84rem; }
+
+  /* Leave space at bottom so floating Ask AI button never covers footer links */
+  footer { padding: 22px 0 76px; }
+  footer .wrap { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .footer-hint { font-size: .82rem; }
+  .glass { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
   input, textarea { font-size: 16px; }
   .chat-fab { right: 14px; bottom: 14px; padding: 10px 15px; }
-  .chat-widget { right: 10px; left: 10px; width: auto; bottom: 68px; height: 72vh; }
+  .chat-widget { right: 10px; left: 10px; width: auto; bottom: 68px; height: 70vh; }
 }
 
 @media (max-width: 380px) {
