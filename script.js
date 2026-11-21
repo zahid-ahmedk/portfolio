@@ -5,76 +5,38 @@ const CFG = window.PORTFOLIO_CONFIG || {};
 
 $("#year").textContent = new Date().getFullYear();
 
-/* ---- Toast helper ---- */
-const toastEl = $("#toast");
-let toastTimer = null;
-function showToast(msg) {
-  if (!toastEl) return;
-  toastEl.textContent = msg;
-  toastEl.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2600);
-}
-
-/* ---- Copy email helper ---- */
-async function copyEmail() {
-  const email = "techyexpert98@gmail.com";
-  try {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      await navigator.clipboard.writeText(email);
-    } else {
-      const ta = document.createElement("textarea");
-      ta.value = email;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      ta.remove();
-    }
-    showToast("Email copied: " + email);
-  } catch (e) {
-    showToast("Email: " + email);
-  }
-}
-const copyEmailHero = $("#copyEmailHero");
-if (copyEmailHero) copyEmailHero.addEventListener("click", copyEmail);
-
-/* ---- Apply optional config links (LinkedIn & Resume) ---- */
+/* ---- Apply config.js (LinkedIn & Resume) ---- */
 if (CFG.linkedinUrl) {
-  const row = $("#linkedinRow"), link = $("#linkedinLink");
+  const row = $("#linkedinRow"), link = $("#linkedinLink"), navLi = $("#navLinkedin");
   if (row && link) {
     link.href = CFG.linkedinUrl;
     link.textContent = CFG.linkedinUrl.replace(/^https?:\/\/(www\.)?/, "");
     row.style.display = "flex";
   }
-}
-if (CFG.resumeUrl) {
-  const navCta = $("#navCta");
-  if (navCta) {
-    navCta.href = CFG.resumeUrl;
-    navCta.setAttribute("download", "");
-    navCta.textContent = "Download Resume";
+  if (navLi) {
+    navLi.href = CFG.linkedinUrl;
+    navLi.style.display = "inline-flex";
   }
 }
 
-/* ---- Theme toggle (dark / light) ---- */
+/* ---- Theme toggle (dark obsidian default + light mode) ---- */
 const themeBtn = $("#themeBtn");
 function applyTheme(t) {
   document.documentElement.setAttribute("data-theme", t);
   themeBtn.textContent = t === "light" ? "🌙" : "☀️";
   const metaTheme = $('meta[name="theme-color"]');
-  if (metaTheme) metaTheme.content = t === "light" ? "#f6f8fc" : "#050814";
+  if (metaTheme) metaTheme.content = t === "light" ? "#f4f7fa" : "#050709";
 }
 let savedTheme = "dark";
-try { savedTheme = localStorage.getItem("portfolio_theme") || "dark"; } catch (e) {}
+try { savedTheme = localStorage.getItem("portfolio_theme_v3") || "dark"; } catch (e) {}
 applyTheme(savedTheme);
 themeBtn.addEventListener("click", () => {
   const next = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
   applyTheme(next);
-  try { localStorage.setItem("portfolio_theme", next); } catch (e) {}
-  showToast(next === "light" ? "Switched to Light Theme" : "Switched to Dark Theme");
+  try { localStorage.setItem("portfolio_theme_v3", next); } catch (e) {}
 });
 
-/* ---- Load me.png when hosted alongside the file ---- */
+/* ---- Load me.png when hosted ---- */
 const photo = $("#myPhoto");
 if (location.protocol === "http:" || location.protocol === "https:" || location.protocol === "file:") {
   const realPhoto = new Image();
@@ -82,8 +44,29 @@ if (location.protocol === "http:" || location.protocol === "https:" || location.
   realPhoto.src = "me.png";
 }
 
-/* ---- Interactive Case Study Tabs ---- */
-$$(".case").forEach(card => {
+/* ---- Spotlight & Magnetic hover (desktop only, lightweight) ---- */
+if (!reduce && matchMedia("(hover: hover)").matches) {
+  $$(".spotlight").forEach(card => {
+    card.addEventListener("pointermove", e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      card.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+    });
+  });
+
+  $$(".magnetic").forEach(el => {
+    el.addEventListener("pointermove", e => {
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) * 0.14;
+      const dy = (e.clientY - (r.top + r.height / 2)) * 0.14;
+      el.style.transform = `translate(${dx}px, ${dy - 2}px)`;
+    });
+    el.addEventListener("pointerleave", () => { el.style.transform = ""; });
+  });
+}
+
+/* ---- Case Study Tabs ---- */
+$$(".case-box").forEach(card => {
   const tabs = $$(".case-tab", card);
   const panels = $$(".case-panel", card);
   tabs.forEach(tab => {
@@ -95,9 +78,9 @@ $$(".case").forEach(card => {
   });
 });
 
-/* ---- Interactive Skill Category Filter ---- */
+/* ---- Skill Filter Pills ---- */
 const skillBtns = $$("#skillFilters button");
-const skillCards = $$("#skillGrid .panel");
+const skillCards = $$("#skillGrid .skill-box");
 skillBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     const f = btn.dataset.filter;
@@ -109,119 +92,7 @@ skillBtns.forEach(btn => {
   });
 });
 
-/* ---- Command Palette (Ctrl+K / Cmd+K) ---- */
-const cmdBackdrop = $("#cmdBackdrop"), cmdBtn = $("#cmdBtn"), cmdClose = $("#cmdClose"), cmdSearch = $("#cmdSearch");
-const cmdItems = $$("#cmdList button");
-function toggleCmd(force) {
-  const open = typeof force === "boolean" ? force : !cmdBackdrop.classList.contains("open");
-  cmdBackdrop.classList.toggle("open", open);
-  cmdBackdrop.setAttribute("aria-hidden", String(!open));
-  if (open) {
-    cmdSearch.value = "";
-    cmdItems.forEach(b => b.style.display = "flex");
-    setTimeout(() => cmdSearch.focus(), 60);
-  }
-}
-if (cmdBtn) cmdBtn.addEventListener("click", () => toggleCmd(true));
-if (cmdClose) cmdClose.addEventListener("click", () => toggleCmd(false));
-cmdBackdrop.addEventListener("click", e => { if (e.target === cmdBackdrop) toggleCmd(false); });
-cmdSearch.addEventListener("input", () => {
-  const q = cmdSearch.value.toLowerCase();
-  cmdItems.forEach(b => {
-    b.style.display = b.textContent.toLowerCase().includes(q) ? "flex" : "none";
-  });
-});
-cmdItems.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const act = btn.dataset.action;
-    toggleCmd(false);
-    if (act === "scroll") {
-      const target = $(btn.dataset.target);
-      if (target) target.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-    } else if (act === "chat") {
-      toggleChat(true);
-    } else if (act === "copy") {
-      copyEmail();
-    } else if (act === "theme") {
-      themeBtn.click();
-    }
-  });
-});
-
-/* ---- Interactive Constellation Particle Canvas ---- */
-const canvas = $("#bgCanvas");
-if (canvas && !reduce) {
-  const ctx = canvas.getContext("2d");
-  let w = 0, h = 0, pts = [];
-  const mouse = { x: -9999, y: -9999 };
-  const isMobile = () => innerWidth < 640;
-
-  function initCanvas() {
-    w = canvas.width = innerWidth;
-    h = canvas.height = innerHeight;
-    const count = isMobile() ? 14 : 26;
-    pts = Array.from({ length: count }, () => ({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      vx: (Math.random() - 0.5) * 0.32,
-      vy: (Math.random() - 0.5) * 0.32,
-      r: Math.random() * 1.5 + 0.8
-    }));
-  }
-  initCanvas();
-  addEventListener("resize", initCanvas);
-  addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-
-  function draw() {
-    if (window.scrollY > h * 1.15) {
-      requestAnimationFrame(draw);
-      return;
-    }
-    ctx.clearRect(0, 0, w, h);
-    const light = document.documentElement.getAttribute("data-theme") === "light";
-    const dotCol = light ? "rgba(37, 99, 235, 0.30)" : "rgba(124, 196, 250, 0.45)";
-    const lineRgb = light ? "37, 99, 235" : "124, 196, 250";
-
-    for (let i = 0; i < pts.length; i++) {
-      const p = pts[i];
-      p.x += p.vx; p.y += p.vy;
-      if (p.x < 0 || p.x > w) p.vx *= -1;
-      if (p.y < 0 || p.y > h) p.vy *= -1;
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = dotCol;
-      ctx.fill();
-
-      for (let j = i + 1; j < pts.length; j++) {
-        const q = pts[j];
-        const dist = Math.hypot(p.x - q.x, p.y - q.y);
-        if (dist < 135) {
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = `rgba(${lineRgb}, ${(1 - dist / 135) * 0.14})`;
-          ctx.lineWidth = 1;
-          ctx.stroke();
-        }
-      }
-
-      const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-      if (md < 165) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(mouse.x, mouse.y);
-        ctx.strokeStyle = `rgba(${lineRgb}, ${(1 - md / 165) * 0.25})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-    }
-    requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-}
-
-/* ---- Mobile menu & Global Keyboard Shortcuts ---- */
+/* ---- Mobile Menu ---- */
 const menuBtn = $("#menuBtn"), links = $("#links");
 const closeMenu = () => { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); };
 menuBtn.addEventListener("click", () => {
@@ -229,35 +100,20 @@ menuBtn.addEventListener("click", () => {
   menuBtn.setAttribute("aria-expanded", String(open));
 });
 $$("a", links).forEach(a => a.addEventListener("click", closeMenu));
-addEventListener("keydown", e => {
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-    e.preventDefault();
-    toggleCmd();
-  } else if (e.key === "Escape") {
-    closeMenu();
-    toggleCmd(false);
-  }
-});
-document.addEventListener("click", e => { if (!e.target.closest("nav")) closeMenu(); });
+addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
+document.addEventListener("click", e => { if (!e.target.closest("header")) closeMenu(); });
 addEventListener("resize", () => { if (innerWidth > 900) closeMenu(); });
 
-/* ---- Scroll: progress bar, photo fade + parallax, menu highlight ---- */
-const progress = $("#progress"), hero = $("#top"), stage = $("#photo"), heroText = $("#heroText");
-const items = $$(".links a.item");
+/* ---- Scroll Progress & Active Nav ---- */
+const progress = $("#progress");
+const items = $$(".nav-box a.item");
 const sections = items.map(a => $(a.getAttribute("href")));
 let ticking = false;
 function onScroll() {
   const y = window.scrollY;
   const max = document.documentElement.scrollHeight - innerHeight;
   progress.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
-
-  const p = Math.min(y / (hero.offsetHeight * 0.75), 1);
-  stage.style.opacity = 1 - p;
-  stage.style.transform = `translate3d(0, ${y * 0.16}px, 0) scale(${1 - p * 0.06})`;
-  heroText.style.opacity = 1 - p * 0.65;
-  heroText.style.transform = `translate3d(0, ${y * 0.07}px, 0)`;
-
-  const mark = y + 140;
+  const mark = y + 120;
   sections.forEach((s, i) => {
     if (s && s.offsetTop <= mark && s.offsetTop + s.offsetHeight > mark) {
       items.forEach(a => a.classList.remove("active"));
@@ -269,10 +125,10 @@ function onScroll() {
 addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(onScroll); ticking = true; } }, { passive: true });
 onScroll();
 
-/* ---- Reveal on scroll + counters ---- */
+/* ---- Reveal & Counters ---- */
 function countUp(el) {
   const target = +el.dataset.count; let n = 0;
-  const step = Math.max(1, Math.ceil(target / 40));
+  const step = Math.max(1, Math.ceil(target / 35));
   const t = setInterval(() => { n = Math.min(target, n + step); el.textContent = n; if (n >= target) clearInterval(t); }, 30);
 }
 const io = new IntersectionObserver(entries => {
@@ -285,7 +141,7 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 $$(".reveal, .stagger").forEach(el => io.observe(el));
 
-/* ---- Typing effect ---- */
+/* ---- Typing Effect ---- */
 const words = ["education platforms.", "AI-powered tools.", "campus software.", "scalable web apps."];
 const typedEl = $("#typed");
 if (reduce) { typedEl.textContent = words[0]; }
@@ -301,40 +157,7 @@ else {
   })();
 }
 
-/* ---- Marquee ---- */
-const track = $("#marqueeTrack");
-track.innerHTML += track.innerHTML;
-
-/* ---- Cursor glow ---- */
-const glow = $("#cursorGlow");
-addEventListener("pointermove", e => { glow.style.transform = `translate(${e.clientX - 210}px, ${e.clientY - 210}px)`; }, { passive: true });
-
-/* ---- 3D tilt + shine + magnetic buttons ---- */
-if (!reduce && matchMedia("(hover: hover)").matches) {
-  $$(".tilt").forEach(card => {
-    card.addEventListener("pointermove", e => {
-      const r = card.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-      card.style.setProperty("--mx", x * 100 + "%");
-      card.style.setProperty("--my", y * 100 + "%");
-      const big = r.width > 700 ? 0.25 : 1;
-      card.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 7 * big}deg) rotateY(${(x - 0.5) * 9 * big}deg) translateY(-4px)`;
-    });
-    card.addEventListener("pointerleave", () => { card.style.transform = ""; });
-  });
-
-  $$(".magnetic").forEach(el => {
-    el.addEventListener("pointermove", e => {
-      const r = el.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) * 0.16;
-      const dy = (e.clientY - (r.top + r.height / 2)) * 0.16;
-      el.style.transform = `translate(${dx}px, ${dy - 2}px)`;
-    });
-    el.addEventListener("pointerleave", () => { el.style.transform = ""; });
-  });
-}
-
-/* ---- Contact form inline feedback ---- */
+/* ---- Contact Form ---- */
 const contactForm = $("#contactForm"), formStatus = $("#formStatus");
 contactForm.addEventListener("submit", async e => {
   e.preventDefault();
@@ -355,10 +178,10 @@ contactForm.addEventListener("submit", async e => {
       formStatus.textContent = "Thanks! Your message has been received.";
       contactForm.reset();
     } else {
-      formStatus.textContent = "Could not send right now — feel free to email techyexpert98@gmail.com directly.";
+      formStatus.textContent = "Could not send right now — please email techyexpert98@gmail.com directly.";
     }
   } catch (err) {
-    formStatus.textContent = "Could not send right now — feel free to email techyexpert98@gmail.com directly.";
+    formStatus.textContent = "Could not send right now — please email techyexpert98@gmail.com directly.";
   }
   formStatus.classList.add("show");
 });
